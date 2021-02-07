@@ -1,17 +1,14 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+# Get copy paste instructions for the http_archive attributes from the
+# release notes at https://github.com/bazelbuild/rules_docker/releases
 http_archive(
-  # Get copy paste instructions for the http_archive attributes from the
-  # release notes at https://github.com/bazelbuild/rules_docker/releases
+    name = "io_bazel_rules_docker",
+    sha256 = "1698624e878b0607052ae6131aa216d45ebb63871ec497f26c67455b34119c80",
+    strip_prefix = "rules_docker-0.15.0",
+    urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.15.0/rules_docker-v0.15.0.tar.gz"],
 )
 
-# OPTIONAL: Call this to override the default docker toolchain configuration.
-# This call should be placed BEFORE the call to "container_repositories" below
-# to actually override the default toolchain configuration.
-# Note this is only required if you actually want to call
-# docker_toolchain_configure with a custom attr; please read the toolchains
-# docs in /toolchains/docker/ before blindly adding this to your WORKSPACE.
-# BEGIN OPTIONAL segment:
 load("@io_bazel_rules_docker//toolchains/docker:toolchain.bzl",
     docker_toolchain_configure="toolchain_configure"
 )
@@ -23,6 +20,10 @@ load(
 )
 container_repositories()
 
+# Deps
+load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
+container_deps()
+
 # Base image
 load(
     "@io_bazel_rules_docker//container:container.bzl",
@@ -32,6 +33,6 @@ container_pull(
   name = "java_base",
   registry = "gcr.io",
   repository = "distroless/java",
-  # 'tag' is also supported, but digest is encouraged for reproducibility.
-  digest = "sha256:deadbeef",
+  tag = "latest" # is also supported, but digest is encouraged for reproducibility.
+  # digest = "sha256:deadbeef",
 )

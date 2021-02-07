@@ -1,0 +1,18 @@
+load("@rules_java//java:defs.bzl", "java_binary")
+load("@io_bazel_rules_docker//container:container.bzl", "container_image")
+
+java_binary(
+    name = "java_jar",
+    srcs = glob(["src/main/java/com/example/**/*.java"])
+)
+
+# 1. bazel build //java:app.tar
+# 2. docker load -i bazel-bin/java/app.tar
+# 3. ???
+container_image(
+    name = "java_docker",
+    # References container_pull from WORKSPACE
+    base = "@java_base//image",
+    files = ["//java:java_jar.jar"],
+    cmd = ["java", "-jar", "Main"]
+)
