@@ -1,0 +1,7 @@
+load(":sbt-package.bzl", "sbt_package")
+
+
+sbt_package(
+    name = "scala_jar",
+    jar = "scala_2.12-0.1.0-SNAPSHOT.jar"
+)

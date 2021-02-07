@@ -1,3 +1,5 @@
 .vscode
 .metals
 bazel-*
+scala/target
+scala/project/target

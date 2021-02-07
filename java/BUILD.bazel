@@ -14,5 +14,5 @@ container_image(
     # References container_pull from WORKSPACE
     base = "@java_base//image",
     files = ["//java:java_jar.jar"],
-    cmd = ["java", "-jar", "Main"]
+    cmd = ["java_jar.jar"]
 )
