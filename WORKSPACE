@@ -36,3 +36,10 @@ container_pull(
   tag = "latest" # is also supported, but digest is encouraged for reproducibility.
   # digest = "sha256:deadbeef",
 )
+
+container_pull(
+    name = "busybox",
+    registry = "index.docker.io",
+    repository = "library/busybox",
+    tag = "latest",
+)

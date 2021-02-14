@@ -1,7 +1,20 @@
-load(":sbt-package.bzl", "sbt_package")
+# load(":sbt-package.bzl", "sbt_package")
+load("@io_bazel_rules_docker//docker/util:run.bzl", "container_run_and_extract")
 
+# sbt_package(
+#     name = "scala_jar",
+#     jar = "scala_2.12-0.1.0-SNAPSHOT.jar",
+#    # script = "//scala:test.sh"
+# )
 
-sbt_package(
-    name = "scala_jar",
-    jar = "scala_2.12-0.1.0-SNAPSHOT.jar"
+# TODO: Search how to edit specific layer and reuse in docker image
+
+container_run_and_extract(
+    name = "scala_file",
+    commands = [
+        "mkdir tempor",
+        "echo 'Hello Docker!' >> tempor/text.txt"
+    ],
+    extract_file = "tempor/text.txt",
+    image = "@busybox//image"
 )

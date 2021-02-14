@@ -6,9 +6,11 @@ def _sbt_package(ctx):
     ctx.actions.run_shell(
         # Output file name that must be created by the action.
         outputs = [ctx.outputs.jar],
-        command = "sbt package",
+        command = "docker ps -a",
+        # executable = [ctx.attr.script],
+        tools = ['sbt']
         mnemonic = "sbtpackage",
-        progress_message = "Making Scala Jar Package",
+        progress_message = "Scala Jar Package",
         env = ctx.attr.env
     )
 
@@ -23,6 +25,9 @@ sbt_package = rule(
             mandatory = True,
             doc = "The name of jar file which needed to be created",
         ),
+        # "script": attr.string(
+        #     mandatory = False
+        # ),
         "env": attr.label(
             mandatory = False,
             doc = "Dictionary with enviroment variables"
