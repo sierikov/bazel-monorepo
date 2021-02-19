@@ -38,8 +38,8 @@ container_pull(
 )
 
 container_pull(
-    name = "busybox",
+    name = "scala-sbt",
     registry = "index.docker.io",
-    repository = "library/busybox",
-    tag = "latest",
+    repository = "hseeberger/scala-sbt",
+    tag = "11.0.3_1.2.8_2.13.0",
 )
